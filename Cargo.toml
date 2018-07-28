@@ -1,0 +1,6 @@
+[package]
+name = "roguekit"
+version = "0.1.0"
+authors = ["Royall Spence <royall@royall.us>"]
+
+[dependencies]
