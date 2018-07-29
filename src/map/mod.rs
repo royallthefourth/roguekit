@@ -5,29 +5,31 @@ use super::Point;
 use std::collections::BTreeMap;
 
 pub enum CellType {
-    Door,
-    Empty,
-    Wall,
+    Empty = 0,
+    Wall = 1,
+    Door = 2,
 }
 
 pub enum DirectionX {
-    Left,
-    Right,
+    Left = -1,
+    Right = 1,
+    None = 0,
 }
 
 pub enum DirectionY {
-    Down,
-    Up,
+    Down = 1,
+    Up = -1,
+    None = 0,
 }
 
 pub struct Map {
-    width: u32,
-    height: u32,
+    width: i32,
+    height: i32,
     pub map: BTreeMap<Point, CellType>,
 }
 
 impl Map {
-    pub fn new(width: u32, height: u32) -> Map {
+    pub fn new(width: i32, height: i32) -> Map {
         Map {
             width,
             height,
@@ -35,11 +37,11 @@ impl Map {
         }
     }
 
-    pub fn width(&self) -> u32 {
+    pub fn width(&self) -> i32 {
         self.width
     }
 
-    pub fn height(&self) -> u32 {
+    pub fn height(&self) -> i32 {
         self.height
     }
 }
@@ -51,11 +53,11 @@ pub struct Dungeon {
 }
 
 impl Dungeon {
-    pub fn width(&self) -> u32 {
+    pub fn width(&self) -> i32 {
         self.map.width()
     }
 
-    pub fn height(&self) -> u32 {
+    pub fn height(&self) -> i32 {
         self.map.height()
     }
 }
