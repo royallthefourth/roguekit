@@ -10,12 +10,14 @@ pub enum CellType {
     Door = 2,
 }
 
+#[derive(PartialEq)]
 pub enum DirectionX {
     Left = -1,
     Right = 1,
     None = 0,
 }
 
+#[derive(PartialEq)]
 pub enum DirectionY {
     Down = 1,
     Up = -1,

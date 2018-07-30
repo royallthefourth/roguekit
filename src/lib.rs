@@ -2,26 +2,26 @@ pub mod map;
 
 use std::cmp::Ordering;
 
-#[derive(Eq, PartialEq)]
+#[derive(Clone, Eq, PartialEq)]
 pub struct Point {
-    pub x: u32,
-    pub y: u32,
+    pub x: i32,
+    pub y: i32,
 }
 
 impl std::cmp::Ord for Point {
     fn cmp(&self, other: &Point) -> Ordering {
         if self.y < other.y {
-            return Ordering::Less;
+            Ordering::Less
         } else if self.y == other.y {
             if self.x < other.y {
-                return Ordering::Less;
+                Ordering::Less
             } else if self.x == other.x {
-                return Ordering::Equal;
+                Ordering::Equal
             } else {
-                return Ordering::Greater;
+                Ordering::Greater
             }
         } else {
-            return Ordering::Greater;
+            Ordering::Greater
         }
     }
 }
