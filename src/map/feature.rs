@@ -48,13 +48,15 @@ impl Feature for Corridor {
             let x = self.start.x + i * dir_x;
             let y = self.start.y + i * dir_y;
 
-            if !can_dig(&Point { x, y }) || !is_wall(&Point {
-                x: x + nx,
-                y: y + ny,
-            }) || !is_wall(&Point {
-                x: x - nx,
-                y: y - ny,
-            }) {
+            if !can_dig(&Point { x, y })
+                || !is_wall(&Point {
+                    x: x + nx,
+                    y: y + ny,
+                })
+                || !is_wall(&Point {
+                    x: x - nx,
+                    y: y - ny,
+                }) {
                 length = i;
                 self.end.x = x - dir_x;
                 self.end.y = y - dir_y;
@@ -251,10 +253,9 @@ impl Room {
         let y2 = door.y - (height as f32 * scale).floor() as i32;
         let mut d: Vec<Point> = Vec::new();
         d.push(door.clone());
-        let r: Room;
 
-        if dx == DirectionX::Right {
-            r = Room {
+        let r = match (dx, dy) {
+            (DirectionX::Right, _) => Room {
                 top_left: Point {
                     x: (door.x + 1),
                     y: y2,
@@ -264,9 +265,8 @@ impl Room {
                     y: (y2 + height - 1),
                 },
                 doors: d,
-            };
-        } else if dx == DirectionX::Left {
-            r = Room {
+            },
+            (DirectionX::Left, _) => Room {
                 top_left: Point {
                     x: door.x - width,
                     y: y2,
@@ -276,9 +276,8 @@ impl Room {
                     y: y2 + height - 1,
                 },
                 doors: d,
-            };
-        } else if dy == DirectionY::Down {
-            r = Room {
+            },
+            (_, DirectionY::Down) => Room {
                 top_left: Point {
                     x: x2,
                     y: door.y + 1,
@@ -288,10 +287,8 @@ impl Room {
                     y: door.y + height,
                 },
                 doors: d,
-            };
-        } else {
-            // dy == DirectionY::Up
-            r = Room {
+            },
+            (_, _) => Room {
                 top_left: Point {
                     x: x2,
                     y: door.y - height,
@@ -301,8 +298,8 @@ impl Room {
                     y: door.y - 1,
                 },
                 doors: d,
-            };
-        }
+            },
+        };
 
         Ok(r)
     }
